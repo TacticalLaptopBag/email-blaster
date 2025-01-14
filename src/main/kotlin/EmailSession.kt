@@ -10,6 +10,7 @@ class EmailSession(
     guildId: String,
     private val _subject: String,
     private val _message: String,
+    ccSelf: Boolean = true,
 ) {
     private val _email = HtmlEmail()
 
@@ -42,7 +43,10 @@ class EmailSession(
         _email.setAuthentication(user, password)
         _email.isSSLOnConnect = enableSSL
         _email.setFrom(user)
-        _email.addCc(user)
+
+        if(useGuildSettings && ccSelf) {
+            _email.addCc(user)
+        }
     }
 
     fun addTo(email: String) {
