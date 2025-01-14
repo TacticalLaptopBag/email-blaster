@@ -111,11 +111,6 @@ fun main() {
             .setDefaultPermissions(DefaultMemberPermissions.ENABLED),
     )
 
-    jda.getGuildById(1189030160905809961)
-        ?.updateCommands()
-        ?.addCommands(commands)
-        ?.queue()
-
     jda.updateCommands()
         .addCommands(commands)
         .queue()
