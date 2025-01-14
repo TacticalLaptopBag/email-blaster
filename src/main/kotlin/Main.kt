@@ -62,11 +62,11 @@ fun main() {
         Commands.slash("mailadd", "Adds an email to the mailing list")
             .setGuildOnly(true)
             .addOption(OptionType.STRING, "email", "The email to add to the mailing list", true)
-            .setDefaultPermissions(DefaultMemberPermissions.DISABLED),
+            .setDefaultPermissions(DefaultMemberPermissions.ENABLED),
         Commands.slash("mailremove", "Removes an email from the mailing list")
             .setGuildOnly(true)
             .addOption(OptionType.STRING, "email", "The email to remove from the mailing list", true)
-            .setDefaultPermissions(DefaultMemberPermissions.DISABLED),
+            .setDefaultPermissions(DefaultMemberPermissions.ENABLED),
         Commands.slash("mailtest", "Tests whether the setup run by /setup or /setupadvanced is functioning correctly")
             .setGuildOnly(true)
             .setDefaultPermissions(DefaultMemberPermissions.DISABLED),
@@ -109,7 +109,7 @@ fun main() {
         Commands.slash("verify", "Verifies that you are in control of an email to perform an action on it")
             .setGuildOnly(true)
             .addOption(OptionType.INTEGER, "code", "The verification code received in your email", true)
-            .setDefaultPermissions(DefaultMemberPermissions.DISABLED),
+            .setDefaultPermissions(DefaultMemberPermissions.ENABLED),
     )
 
     jda.getGuildById(1189030160905809961)
