@@ -14,6 +14,7 @@ fun main() {
 
     val messageListener = MessageReceiveListener(mailingList)
     val commandListener = SlashCommandListener(messageListener, mailingList)
+    val leaveListener = LeaveGuildListener(messageListener)
 
     logger.info("Initializing JDA...")
     val jda = JDABuilder.createLight(
@@ -26,6 +27,7 @@ fun main() {
         .addEventListeners(
             messageListener,
             commandListener,
+            leaveListener,
         )
         .build()
         .awaitReady()
