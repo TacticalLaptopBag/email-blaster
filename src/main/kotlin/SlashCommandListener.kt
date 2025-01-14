@@ -113,7 +113,8 @@ class SlashCommandListener(
                 Run <strong>`/verify $code`</strong> in the Discord server to complete this action
                 
                 This code will expire in 15 minutes.
-            """.trimIndent()
+            """.trimIndent(),
+            ccSelf = false,
         )
         session.addTo(email)
         session.sendHTML()
