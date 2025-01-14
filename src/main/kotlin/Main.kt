@@ -9,11 +9,10 @@ import org.slf4j.LoggerFactory
 import kotlin.io.path.*
 
 fun cleanup(predicate: (guildId: Long) -> Boolean) {
-    // TODO: This doesn't seem to actually delete files
     if(Dirs.dataPath.notExists()) return
     for(filePath in Dirs.dataPath.listDirectoryEntries()) {
         if(!filePath.isRegularFile()) return
-        if(!filePath.endsWith(".txt") && !filePath.endsWith(".properties")) return
+        if(filePath.extension != "txt" && filePath.extension != "properties") return
 
         val guildIdString = filePath.nameWithoutExtension.substringBefore("-", "-1")
         guildIdString.toLongOrNull()?.let { guildId ->
