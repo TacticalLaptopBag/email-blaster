@@ -4,13 +4,18 @@ import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions
 import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.Commands
+import net.dv8tion.jda.api.requests.GatewayIntent
+import org.slf4j.LoggerFactory
 
 fun main() {
+    val logger = LoggerFactory.getLogger("Main")
+
     val mailingList = MailingList()
 
     val messageListener = MessageReceiveListener(mailingList)
     val commandListener = SlashCommandListener(messageListener, mailingList)
 
+    logger.info("Initializing JDA...")
     val jda = JDABuilder.createLight(
         MailBlasterProperties.discordToken,
         listOf(
@@ -24,6 +29,7 @@ fun main() {
         )
         .build()
         .awaitReady()
+    logger.info("JDA is ready")
 
 
     jda.updateCommands()
@@ -42,4 +48,5 @@ fun main() {
                 .setDefaultPermissions(DefaultMemberPermissions.DISABLED)
         )
         .queue()
+    logger.info("Sent commands")
 }

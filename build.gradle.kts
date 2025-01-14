@@ -20,6 +20,8 @@ dependencies {
     implementation("net.dv8tion:JDA:5.2.2") {
         exclude(module="opus-java")
     }
+    // SLF4J Logging backend
+    implementation("ch.qos.logback:logback-classic:1.5.6")
 
     // Apache Email
     // https://gist.github.com/BlackthornYugen/1b3e1ff4426294e7054c9a7190e8f2cd
