@@ -13,7 +13,10 @@ fun main() {
 
     val jda = JDABuilder.createLight(
         MailBlasterProperties.discordToken,
-        emptyList()
+        listOf(
+            GatewayIntent.GUILD_MESSAGES,
+            GatewayIntent.MESSAGE_CONTENT,
+        )
     )
         .addEventListeners(
             messageListener,
