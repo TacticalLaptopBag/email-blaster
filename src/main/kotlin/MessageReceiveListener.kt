@@ -34,7 +34,7 @@ class MessageReceiveListener(private val _mailingList: MailingList) : ListenerAd
 
             val subject = if (rawContent.startsWith("#")) {
                 val subjectLine = rawContent.lines().first().replace("#", "").trim()
-                subjectPrefix + subjectLine
+                "$subjectPrefix $subjectLine"
             } else {
                 "$subjectPrefix $defaultSubject"
             }
