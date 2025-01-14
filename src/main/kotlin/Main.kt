@@ -6,12 +6,11 @@ import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.Commands
 import net.dv8tion.jda.api.requests.GatewayIntent
 import org.slf4j.LoggerFactory
-import kotlin.io.path.deleteExisting
-import kotlin.io.path.isRegularFile
-import kotlin.io.path.listDirectoryEntries
-import kotlin.io.path.nameWithoutExtension
+import kotlin.io.path.*
 
 fun cleanup(predicate: (guildId: Long) -> Boolean) {
+    // TODO: This doesn't seem to actually delete files
+    if(Dirs.dataPath.notExists()) return
     for(filePath in Dirs.dataPath.listDirectoryEntries()) {
         if(!filePath.isRegularFile()) return
         if(!filePath.endsWith(".txt") && !filePath.endsWith(".properties")) return
