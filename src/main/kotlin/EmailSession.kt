@@ -7,6 +7,7 @@ import java.io.InputStreamReader
 import java.util.stream.Collectors
 
 class EmailSession(
+    guildId: String,
     private val _subject: String,
     private val _message: String,
 ) {
@@ -17,13 +18,29 @@ class EmailSession(
     }
 
     init {
-        val user = MailBlasterProperties.emailUser
-        val password = MailBlasterProperties.emailPassword
+        val persistence = Persistence(guildId)
+        val guildUser = persistence.get(KEY_EMAIL_USER)
+        val guildPassword = persistence.get(KEY_EMAIL_PASS)
+        val guildHostName = persistence.get(KEY_EMAIL_HOST)
+        val guildSmtpPort = persistence.get(KEY_EMAIL_PORT)
+        val guildSSL = persistence.get(KEY_EMAIL_SSL)
 
-        _email.hostName = MailBlasterProperties.emailHostName
-        _email.setSmtpPort(MailBlasterProperties.emailSmtpPort)
+        val useGuildSettings = !guildUser.isNullOrBlank()
+                && !guildPassword.isNullOrBlank()
+                && !guildHostName.isNullOrBlank()
+                && !guildSmtpPort.isNullOrBlank()
+                && !guildSSL.isNullOrBlank()
+
+        val user = if(useGuildSettings) guildUser else MailBlasterProperties.emailUser
+        val password = if(useGuildSettings) guildPassword else MailBlasterProperties.emailPassword
+        val hostName = if(useGuildSettings) guildHostName else MailBlasterProperties.emailHostName
+        val smtpPort = if(useGuildSettings) guildSmtpPort!!.toInt() else MailBlasterProperties.emailSmtpPort
+        val enableSSL = if(useGuildSettings) guildSSL.toBoolean() else MailBlasterProperties.emailEnableSSL
+
+        _email.hostName = hostName
+        _email.setSmtpPort(smtpPort)
         _email.setAuthentication(user, password)
-        _email.isSSLOnConnect = MailBlasterProperties.emailEnableSSL
+        _email.isSSLOnConnect = enableSSL
         _email.setFrom(user)
         _email.addCc(user)
     }

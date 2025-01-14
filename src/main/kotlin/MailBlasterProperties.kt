@@ -10,14 +10,13 @@ object MailBlasterProperties {
         _properties.load(classLoader.getResourceAsStream("mail-blaster.properties"))
     }
 
-    val emailUser = _properties.getProperty("mail-blaster.email.user")!!
-    val emailPassword = _properties.getProperty("mail-blaster.email.password")!!
-    val emailHostName = _properties.getProperty("mail-blaster.email.hostName")!!
-    val emailSmtpPort = _properties.getProperty("mail-blaster.email.smtpPort").toInt()
-    val emailEnableSSL = _properties.getProperty("mail-blaster.email.enableSSL").toBoolean()
+    val emailUser = _properties.getProperty(KEY_EMAIL_USER)!!
+    val emailPassword = _properties.getProperty(KEY_EMAIL_PASS)!!
+    val emailHostName = _properties.getProperty(KEY_EMAIL_HOST)!!
+    val emailSmtpPort = _properties.getProperty(KEY_EMAIL_PORT).toInt()
+    val emailEnableSSL = _properties.getProperty(KEY_EMAIL_SSL).toBoolean()
+    val emailSubjectPrefix = _properties.getProperty(KEY_EMAIL_SUBJECT_PREFIX)!!
+    val emailDefaultSubject = _properties.getProperty(KEY_EMAIL_SUBJECT_DEFAULT)!!
 
-    val emailSubjectPrefix = _properties.getProperty("mail-blaster.email.subjectPrefix")!!
-    val emailDefaultSubject = _properties.getProperty("mail-blaster.email.defaultSubject")!!
-
-    val discordToken = _properties.getProperty("mail-blaster.discord.token")!!
+    val discordToken = _properties.getProperty(KEY_DISCORD_TOKEN)!!
 }
