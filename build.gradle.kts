@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.github.tacticallaptopbag.email_blaster"
-version = "1.0-SNAPSHOT"
+version = "1.0"
 
 repositories {
     mavenCentral()
@@ -38,5 +38,5 @@ tasks.test {
     useJUnitPlatform()
 }
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(17)
 }
