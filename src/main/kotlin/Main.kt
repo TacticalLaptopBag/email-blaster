@@ -72,39 +72,42 @@ fun main(args: Array<String>) {
         .awaitReady()
     logger.info("JDA is ready")
 
+    val adminPerm = DefaultMemberPermissions.DISABLED
+    val memberPerm = DefaultMemberPermissions.ENABLED
+
     val commands = listOf(
         Commands.slash("setchannel", "Sets the announcement channel to listen to")
             .setGuildOnly(true)
             .addOption(OptionType.CHANNEL, "channel", "The announcement channel", true)
-            .setDefaultPermissions(DefaultMemberPermissions.DISABLED),
+            .setDefaultPermissions(adminPerm),
         Commands.slash("maillist", "Lists all emails on the mailing list")
             .setGuildOnly(true)
-            .setDefaultPermissions(DefaultMemberPermissions.DISABLED),
+            .setDefaultPermissions(adminPerm),
         Commands.slash("mailadd", "Adds an email to the mailing list")
             .setGuildOnly(true)
             .addOption(OptionType.STRING, "email", "The email to add to the mailing list", true)
-            .setDefaultPermissions(DefaultMemberPermissions.ENABLED),
+            .setDefaultPermissions(memberPerm),
         Commands.slash("mailremove", "Removes an email from the mailing list")
             .setGuildOnly(true)
             .addOption(OptionType.STRING, "email", "The email to remove from the mailing list", true)
-            .setDefaultPermissions(DefaultMemberPermissions.ENABLED),
+            .setDefaultPermissions(memberPerm),
         Commands.slash("mailtest", "Tests whether the setup run by /setup or /setupadvanced is functioning correctly")
             .setGuildOnly(true)
-            .setDefaultPermissions(DefaultMemberPermissions.DISABLED),
+            .setDefaultPermissions(adminPerm),
         Commands.slash(
             "subjectprefix",
             "Sets the subject prefix to use in emails.",
         )
             .setGuildOnly(true)
             .addOption(OptionType.STRING, "prefix", "The prefix to use in emails")
-            .setDefaultPermissions(DefaultMemberPermissions.DISABLED),
+            .setDefaultPermissions(adminPerm),
         Commands.slash(
             "subjectdefault",
             "Sets the default subject to use if the first line in an announcement message doesn't start with a #"
         )
             .setGuildOnly(true)
             .addOption(OptionType.STRING, "subject", "The default subject to use if none is provided by a message")
-            .setDefaultPermissions(DefaultMemberPermissions.DISABLED),
+            .setDefaultPermissions(adminPerm),
         Commands.slash(
             "setup",
             "Sets email to come from a different email account."
@@ -112,7 +115,7 @@ fun main(args: Array<String>) {
             .setGuildOnly(true)
             .addOption(OptionType.STRING, "email", "The email address messages will come from", true)
             .addOption(OptionType.STRING, "password", "The password of the email account", true)
-            .setDefaultPermissions(DefaultMemberPermissions.DISABLED),
+            .setDefaultPermissions(adminPerm),
         Commands.slash(
             "setupadvanced",
             "Sets email to come from a different email account, with settings for unrecognized email domains."
@@ -123,14 +126,17 @@ fun main(args: Array<String>) {
             .addOption(OptionType.STRING, "hostname", "The server address of the email service (e.g. smtp.gmail.com)", true)
             .addOption(OptionType.INTEGER, "port", "The port for email traffic (e.g. 25)", true)
             .addOption(OptionType.BOOLEAN, "ssl", "Whether or not the email service uses SSL", true)
-            .setDefaultPermissions(DefaultMemberPermissions.DISABLED),
+            .setDefaultPermissions(adminPerm),
         Commands.slash("setupclear", "Clears the email configuration and uses the default email")
             .setGuildOnly(true)
-            .setDefaultPermissions(DefaultMemberPermissions.DISABLED),
+            .setDefaultPermissions(adminPerm),
         Commands.slash("verify", "Verifies that you are in control of an email to perform an action on it")
             .setGuildOnly(true)
             .addOption(OptionType.INTEGER, "code", "The verification code received in your email", true)
-            .setDefaultPermissions(DefaultMemberPermissions.ENABLED),
+            .setDefaultPermissions(memberPerm),
+        Commands.slash("info", "Shows the current configuration for this server")
+            .setGuildOnly(true)
+            .setDefaultPermissions(adminPerm),
     )
 
     jda.updateCommands()
