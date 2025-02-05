@@ -1,4 +1,4 @@
-package com.github.tacticallaptopbag.email_blaster
+package com.github.tacticallaptopbag.mail_blaster
 
 import org.apache.commons.mail.HtmlEmail
 import org.slf4j.LoggerFactory

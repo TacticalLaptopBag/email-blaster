@@ -1,4 +1,4 @@
-package com.github.tacticallaptopbag.email_blaster
+package com.github.tacticallaptopbag.mail_blaster
 
 const val KEY_DISCORD_TOKEN = "mail-blaster.discord.token"
 const val KEY_DISCORD_CHANNEL = "mail-blaster.discord.channel"

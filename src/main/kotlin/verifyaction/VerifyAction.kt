@@ -1,4 +1,4 @@
-package com.github.tacticallaptopbag.email_blaster.verifyaction
+package com.github.tacticallaptopbag.mail_blaster.verifyaction
 
 import java.time.Instant
 import java.time.temporal.ChronoUnit

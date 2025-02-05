@@ -1,8 +1,8 @@
-package com.github.tacticallaptopbag.email_blaster
+package com.github.tacticallaptopbag.mail_blaster
 
-import com.github.tacticallaptopbag.email_blaster.verifyaction.AddEmailAction
-import com.github.tacticallaptopbag.email_blaster.verifyaction.RemoveEmailAction
-import com.github.tacticallaptopbag.email_blaster.verifyaction.VerifyAction
+import com.github.tacticallaptopbag.mail_blaster.verifyaction.AddEmailAction
+import com.github.tacticallaptopbag.mail_blaster.verifyaction.RemoveEmailAction
+import com.github.tacticallaptopbag.mail_blaster.verifyaction.VerifyAction
 import net.dv8tion.jda.api.entities.channel.ChannelType
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter

@@ -1,6 +1,6 @@
-package com.github.tacticallaptopbag.email_blaster.verifyaction
+package com.github.tacticallaptopbag.mail_blaster.verifyaction
 
-import com.github.tacticallaptopbag.email_blaster.MailingList
+import com.github.tacticallaptopbag.mail_blaster.MailingList
 
 class RemoveEmailAction(
     override val expectedCode: Int,

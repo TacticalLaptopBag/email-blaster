@@ -3,7 +3,7 @@ plugins {
     application
 }
 
-group = "com.github.tacticallaptopbag.email_blaster"
+group = "com.github.tacticallaptopbag.mail_blaster"
 version = "1.0"
 
 repositories {
@@ -11,7 +11,7 @@ repositories {
 }
 
 application {
-    mainClass = "com.github.tacticallaptopbag.email_blaster.MainKt"
+    mainClass = "com.github.tacticallaptopbag.mail_blaster.MainKt"
 }
 
 dependencies {

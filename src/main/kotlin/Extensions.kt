@@ -1,4 +1,4 @@
-package com.github.tacticallaptopbag.email_blaster
+package com.github.tacticallaptopbag.mail_blaster
 
 import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.entities.Member

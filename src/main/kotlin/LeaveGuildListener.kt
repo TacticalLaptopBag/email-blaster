@@ -1,4 +1,4 @@
-package com.github.tacticallaptopbag.email_blaster
+package com.github.tacticallaptopbag.mail_blaster
 
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
