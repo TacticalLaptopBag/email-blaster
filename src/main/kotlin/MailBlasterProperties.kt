@@ -10,8 +10,9 @@ object MailBlasterProperties {
         _properties.load(classLoader.getResourceAsStream("mail-blaster.properties"))
     }
 
+    val secret = _properties.getProperty(KEY_SECRET)!!
     val emailUser = _properties.getProperty(KEY_EMAIL_USER)!!
-    val emailPassword = _properties.getProperty(KEY_EMAIL_PASS)!!
+    val emailEncryptedPassword = _properties.getProperty(KEY_EMAIL_PASS)!!
     val emailHostName = _properties.getProperty(KEY_EMAIL_HOST)!!
     val emailSmtpPort = _properties.getProperty(KEY_EMAIL_PORT).toInt()
     val emailEnableSSL = _properties.getProperty(KEY_EMAIL_SSL).toBoolean()

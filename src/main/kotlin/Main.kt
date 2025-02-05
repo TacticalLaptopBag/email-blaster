@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.interactions.commands.build.Commands
 import net.dv8tion.jda.api.requests.GatewayIntent
 import org.slf4j.LoggerFactory
 import kotlin.io.path.*
+import kotlin.system.exitProcess
 
 fun cleanup(predicate: (guildId: Long) -> Boolean) {
     if(Dirs.dataPath.notExists()) return
@@ -23,7 +24,29 @@ fun cleanup(predicate: (guildId: Long) -> Boolean) {
     }
 }
 
-fun main() {
+fun showUsage(): Nothing {
+    println("Args usage: [encrypt|decrypt] [text]")
+    exitProcess(1)
+}
+
+fun main(args: Array<String>) {
+    if(args.isNotEmpty()) {
+        if(args.size < 2) {
+            showUsage()
+        }
+
+        val crypt = Crypt(MailBlasterProperties.secret)
+        if(args[0] == "encrypt") {
+            println(crypt.encrypt(args[1]))
+            exitProcess(0)
+        } else if (args[0] == "decrypt") {
+            println(crypt.decrypt(args[1]))
+            exitProcess(0)
+        }
+
+        showUsage()
+    }
+
     val logger = LoggerFactory.getLogger("Main")
 
     val mailingList = MailingList()
@@ -84,7 +107,7 @@ fun main() {
             .setDefaultPermissions(DefaultMemberPermissions.DISABLED),
         Commands.slash(
             "setup",
-            "Sets email to come from a different email account. WARNING: **PLEASE BE CAREFUL WITH THIS!**"
+            "Sets email to come from a different email account."
         )
             .setGuildOnly(true)
             .addOption(OptionType.STRING, "email", "The email address messages will come from", true)

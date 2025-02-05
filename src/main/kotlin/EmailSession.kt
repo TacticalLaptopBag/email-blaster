@@ -19,21 +19,24 @@ class EmailSession(
     }
 
     init {
+        val crypt = Crypt(MailBlasterProperties.secret)
         val persistence = Persistence(guildId)
         val guildUser = persistence.get(KEY_EMAIL_USER)
-        val guildPassword = persistence.get(KEY_EMAIL_PASS)
+        val guildEncryptedPassword = persistence.get(KEY_EMAIL_PASS)
         val guildHostName = persistence.get(KEY_EMAIL_HOST)
         val guildSmtpPort = persistence.get(KEY_EMAIL_PORT)
         val guildSSL = persistence.get(KEY_EMAIL_SSL)
 
         val useGuildSettings = !guildUser.isNullOrBlank()
-                && !guildPassword.isNullOrBlank()
+                && !guildEncryptedPassword.isNullOrBlank()
                 && !guildHostName.isNullOrBlank()
                 && !guildSmtpPort.isNullOrBlank()
                 && !guildSSL.isNullOrBlank()
 
         val user = if(useGuildSettings) guildUser else MailBlasterProperties.emailUser
-        val password = if(useGuildSettings) guildPassword else MailBlasterProperties.emailPassword
+        val password = crypt.decrypt(
+            if(useGuildSettings) guildEncryptedPassword!! else MailBlasterProperties.emailEncryptedPassword
+        )
         val hostName = if(useGuildSettings) guildHostName else MailBlasterProperties.emailHostName
         val smtpPort = if(useGuildSettings) guildSmtpPort!!.toInt() else MailBlasterProperties.emailSmtpPort
         val enableSSL = if(useGuildSettings) guildSSL.toBoolean() else MailBlasterProperties.emailEnableSSL

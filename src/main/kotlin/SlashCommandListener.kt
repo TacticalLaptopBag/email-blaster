@@ -299,7 +299,8 @@ class SlashCommandListener(
     private fun setup(guildId: String, user: String, password: String, hostName: String, port: Int, ssl: Boolean) {
         val persistence = Persistence(guildId)
         persistence.set(KEY_EMAIL_USER, user)
-        persistence.set(KEY_EMAIL_PASS, password)
+        val crypt = Crypt(MailBlasterProperties.secret)
+        persistence.set(KEY_EMAIL_PASS, crypt.encrypt(password))
         persistence.set(KEY_EMAIL_HOST, hostName)
         persistence.set(KEY_EMAIL_PORT, port.toString())
         persistence.set(KEY_EMAIL_SSL, ssl.toString())
