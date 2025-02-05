@@ -340,6 +340,25 @@ class SlashCommandListener(
         }
     }
 
+    private fun cmdInfo(event: SlashCommandInteractionEvent) {
+        val unset = "`unset`"
+        val persistence = Persistence(event.guild!!.id)
+        val channelId = persistence.get(KEY_DISCORD_CHANNEL)
+        val channel = if(channelId.isNullOrBlank()) unset else "<#$channelId>"
+        val email = persistence.get(KEY_EMAIL_USER) ?: unset
+        val subjectPrefix = persistence.get(KEY_EMAIL_SUBJECT_PREFIX) ?: MailBlasterProperties.emailSubjectPrefix
+        val subjectDefault = persistence.get(KEY_EMAIL_SUBJECT_DEFAULT) ?: MailBlasterProperties.emailDefaultSubject
+        val subject = "$subjectPrefix $subjectDefault"
+
+        event.reply(
+            "Announcements channel: $channel\n" +
+                    "Email Account: $email\n" +
+                    "Default Subject: $subject"
+        )
+            .setEphemeral(true)
+            .queue()
+    }
+
     private fun cleanupActions() {
         val now = Instant.now()
         val expiredCodes = mutableListOf<Int>()
@@ -367,6 +386,7 @@ class SlashCommandListener(
             "setupadvanced" -> cmdSetupAdvanced(event)
             "setupclear" -> cmdSetupClear(event)
             "verify" -> cmdVerify(event)
+            "info" -> cmdInfo(event)
         }
     }
 }
