@@ -7,7 +7,7 @@ import kotlin.io.path.Path
 object Dirs {
     val dataPath = Path(
         AppDirsFactory.getInstance().getUserDataDir(
-            "email-blaster",
+            "mail-blaster",
             null,
             "tacticallaptopbag"
         )
