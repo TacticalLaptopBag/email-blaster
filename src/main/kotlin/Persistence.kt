@@ -2,6 +2,7 @@ package com.github.tacticallaptopbag.email_blaster
 
 import org.slf4j.LoggerFactory
 import java.util.Properties
+import kotlin.io.path.createParentDirectories
 import kotlin.io.path.isRegularFile
 
 class Persistence(private val _guildId: String) {
@@ -32,6 +33,7 @@ class Persistence(private val _guildId: String) {
     }
 
     fun save() {
+        _path.createParentDirectories()
         _path.toFile().outputStream().use { stream ->
             _props.store(stream, null)
             _logger.debug("[$_guildId] Saved persistence to file")
