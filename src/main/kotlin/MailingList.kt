@@ -1,14 +1,26 @@
 package com.github.tacticallaptopbag.email_blaster
 
+import org.slf4j.LoggerFactory
 import java.io.File
+import java.nio.file.Files
 import java.nio.file.Path
+import java.nio.file.attribute.PosixFilePermissions
 import kotlin.io.path.*
 
 class MailingList {
+    private val _logger = LoggerFactory.getLogger(MailingList::class.java)
+
     private fun confirmPath(path: Path) {
         if(path.notExists()) {
             path.createParentDirectories()
             path.createFile()
+
+            try {
+                val perms = PosixFilePermissions.fromString("rw-------")
+                Files.setPosixFilePermissions(path, perms)
+            } catch(e: Exception) {
+                _logger.warn("Unable to set mailing list permissions. Is this running on a POSIX-compliant OS?")
+            }
         }
     }
 

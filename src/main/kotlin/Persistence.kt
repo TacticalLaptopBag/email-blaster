@@ -1,6 +1,8 @@
 package com.github.tacticallaptopbag.email_blaster
 
 import org.slf4j.LoggerFactory
+import java.nio.file.Files
+import java.nio.file.attribute.PosixFilePermissions
 import java.util.Properties
 import kotlin.io.path.createParentDirectories
 import kotlin.io.path.isRegularFile
@@ -37,6 +39,13 @@ class Persistence(private val _guildId: String) {
         _path.toFile().outputStream().use { stream ->
             _props.store(stream, null)
             _logger.debug("[$_guildId] Saved persistence to file")
+        }
+
+        try {
+            val perms = PosixFilePermissions.fromString("rw-------")
+            Files.setPosixFilePermissions(_path, perms)
+        } catch(e: Exception) {
+            _logger.warn("Unable to set persistence permissions. Is this running on a POSIX-compliant OS?")
         }
     }
 }
