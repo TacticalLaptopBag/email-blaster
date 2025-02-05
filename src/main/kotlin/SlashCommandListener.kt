@@ -209,7 +209,10 @@ class SlashCommandListener(
                 .setEphemeral(true)
                 .queue()
         } catch(e: Exception) {
-            event.reply("Mail test failed! Exception message: ${e.message}")
+            _logger.info("[$guildId] Mail test failed:", e)
+            var response = "Mail test failed! Exception message: ${e.message}."
+            e.cause?.let { response += " Caused by: ${it.message}" }
+            event.reply(response)
                 .setEphemeral(true)
                 .queue()
         }
